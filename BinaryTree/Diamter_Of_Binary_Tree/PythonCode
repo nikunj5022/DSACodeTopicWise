@@ -1,0 +1,18 @@
+class Solution:
+    
+    def diameter(self,root):
+        if root is None:
+            return 0,0
+        
+        leftDiameter,leftHeight = self.diameter(root.left)
+        rightDiamter,rightHeight = self.diameter(root.right)
+        
+        height = 1 + max(leftHeight,rightHeight)
+        treeDiameter = max(leftDiameter,rightDiamter,1+leftHeight+rightHeight)
+        return treeDiameter,height
+    
+    def diameterOfBinaryTree(self, root):
+        if root is None:
+            return 0
+        ans = self.diameter(root)
+        return ans[0]-1

@@ -1,0 +1,29 @@
+public class Solution {
+    public int[] diameter(TreeNode root) {
+        if (root == null) {
+            return new int[]{0, 0};
+        }
+        
+        int[] leftResult = diameter(root.left);
+        int[] rightResult = diameter(root.right);
+        
+        int leftDiameter = leftResult[0];
+        int leftHeight = leftResult[1];
+        int rightDiameter = rightResult[0];
+        int rightHeight = rightResult[1];
+        
+        int height = 1 + Math.max(leftHeight, rightHeight);
+        int treeDiameter = Math.max(leftDiameter, Math.max(rightDiameter, leftHeight + rightHeight + 1));
+        
+        return new int[]{treeDiameter, height};
+    }
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        
+        int[] result = diameter(root);
+        return result[0] - 1;
+    }
+}
