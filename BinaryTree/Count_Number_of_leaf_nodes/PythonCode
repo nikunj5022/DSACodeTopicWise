@@ -1,0 +1,13 @@
+def countLeafNodes(root):
+    #Base
+    if root is None:
+        return 0
+    if (root.left is None and root.right is None): #leaf node
+        return 1
+    leftNodes = countLeafNodes(root.left)
+    rightNodes = countLeafNodes(root.right)
+    
+    #Logic statement
+    numOfLeafNodes = leftNodes + rightNodes
+    
+    return numOfLeafNodes

@@ -1,0 +1,14 @@
+def countEvenNodes(root):
+    #Base
+    if root is None:
+        return 0
+    leftNodes = countEvenNodes(root.left)
+    rightNodes = countEvenNodes(root.right)
+    
+    #Logic statement
+    if root.val % 2 == 0:
+        numOfEvenNodes = leftNodes + rightNodes + 1
+    else:
+        numOfEvenNodes = leftNodes + rightNodes
+    
+    return numOfEvenNodes
