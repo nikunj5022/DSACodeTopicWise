@@ -1,0 +1,15 @@
+public class Solution {
+    public int countNodes(BinaryTree root) {
+        // Base Case
+        if (root == null) {
+            return 0;
+        }
+        
+        int leftNodes = countNodes(root.left);
+        int rightNodes = countNodes(root.right);
+
+
+        int numOfNodes = leftNodes + rightNodes + 1;
+        return numOfNodes;
+    }
+}
