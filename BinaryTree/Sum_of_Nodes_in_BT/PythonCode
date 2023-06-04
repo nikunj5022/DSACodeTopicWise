@@ -1,0 +1,9 @@
+def nodesSum(root):
+    if root is None:
+        return 0
+    leftSum = nodesSum(root.left)
+    rightSum = nodesSum(root.right)
+    
+    completeSum = root.val + leftSum + rightSum
+    
+    return completeSum

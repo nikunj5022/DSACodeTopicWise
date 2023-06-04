@@ -1,0 +1,9 @@
+public static int nodesSum(BinaryTree root) {
+     if (root == null) {
+        return 0;
+    }
+    int leftSum = nodesSum(root.left);
+    int rightSum = nodesSum(root.right);
+    int completeSum = root.val + leftSum + rightSum;
+    return completeSum;
+}
