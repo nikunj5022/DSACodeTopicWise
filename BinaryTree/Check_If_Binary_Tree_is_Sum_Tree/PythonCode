@@ -1,0 +1,20 @@
+class Solution:
+    def helper(self,root):
+        if root is None:
+            return True,0
+        if root.left is None and root.right is None:
+            return True,root.val
+            
+        leftCheck, leftSum = self.helper(root.left)
+        rightCheck, rightSum = self.helper(root.right)
+            
+        currSum = leftSum + rightSum + root.val
+        
+        if (leftCheck and rightCheck and (leftSum + rightSum == root.val)):
+            return True, currSum
+        
+        return False, currSum
+    
+    def isSumTree(self,root):
+        # Code here
+        return self.helper(root)[0]

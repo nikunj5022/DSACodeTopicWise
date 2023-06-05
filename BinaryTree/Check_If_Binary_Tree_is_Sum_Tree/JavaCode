@@ -1,0 +1,27 @@
+class Solution {
+    public int[] helper(Node root) {
+        if (root == null) {
+            return new int[]{1,0};
+        }
+        
+        if (root.left == null && root.right == null) {
+            return new int[]{1,root.val};
+        }
+        
+        int[] leftResult = helper(root.left);
+        int[] rightResult = helper(root.right);
+        
+        int currSum = leftResult[1] + rightResult[1] + root.val;
+        
+        if (leftResult[0] == 1 && rightResult[0] == 1 && (leftResult[1] + rightResult[1] == root.val)) {
+            return new int[]{1,currSum};
+        } else {
+            return new int[]{0,currSum};
+        }
+    }
+    
+    public boolean isSumTree(Node root) {
+        int x = helper(root)[0];
+        return x == 1;
+    }
+}
