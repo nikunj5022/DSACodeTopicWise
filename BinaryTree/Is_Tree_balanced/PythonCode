@@ -1,0 +1,19 @@
+class Solution:
+    def helper(self,root):
+        if root is None:
+            return 0,True
+        leftHeight,leftBalanced = self.helper(root.left)
+        rightHeight,rightBalanced = self.helper(root.right)
+        height = 1+ max(leftHeight,rightHeight)
+        if leftBalanced == False or rightBalanced == False:
+            return height,False
+        else:
+            if abs(leftHeight-rightHeight) < 2:
+                return height,True
+            else:
+                return height,False
+        
+    
+    def isBalanced(self, root: TreeNode) -> bool:
+        h,b = self.helper(root)
+        return b

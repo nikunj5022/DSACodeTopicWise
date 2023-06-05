@@ -1,0 +1,34 @@
+class Solution {
+    public int[] helper(TreeNode root) {
+        if (root == null) {
+            return new int[]{0, 1}; // [height, balanced]
+        }
+        
+        int[] leftResult = helper(root.left);
+        int[] rightResult = helper(root.right);
+        
+        int leftHeight = leftResult[0];
+        int leftBalanced = leftResult[1];
+        
+        int rightHeight = rightResult[0];
+        int rightBalanced = rightResult[1];
+        
+        int height = 1 + Math.max(leftHeight, rightHeight);
+        
+        if (leftBalanced == 0 || rightBalanced == 0) {
+            return new int[]{height, 0}; // [height, balanced]
+        } else {
+            if (Math.abs(leftHeight - rightHeight) < 2) {
+                return new int[]{height, 1}; // [height, balanced]
+            } else {
+                return new int[]{height, 0}; // [height, balanced]
+            }
+        }
+    }
+    
+    public boolean isBalanced(TreeNode root) {
+        // helper function will return 1 for True and 0 for false
+        int[] result = helper(root);
+        return result[1] == 1;
+    }
+}
