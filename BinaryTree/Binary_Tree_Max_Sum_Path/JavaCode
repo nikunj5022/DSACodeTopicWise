@@ -1,0 +1,31 @@
+class Solution {
+    public int[] helper(TreeNode root) {
+        if (root == null) {
+            // have taken -1001 because it is mentioned in question that [ -1000 <= root.val <= 1000 ]
+            return new int[] {-1001,-1001};
+        }
+        
+        if (root.left == null && root.right == null) {
+            return new int[] {root.val, root.val};
+        }
+        
+        int[] leftResult = helper(root.left);
+        int[] rightResult = helper(root.right);
+        
+        // Logic
+        int maxPathSum = Math.max(root.val + leftResult[1], Math.max(root.val + rightResult[1], root.val));
+        
+        int maxSum = Math.max(leftResult[1] + root.val + rightResult[1], Math.max(leftResult[0], Math.max(rightResult[0], maxPathSum)));
+        
+        return new int[] {maxSum, maxPathSum};
+    }
+    
+    public int maxPathSum(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        
+        int[] result = helper(root);
+        return result[0];
+    }
+}

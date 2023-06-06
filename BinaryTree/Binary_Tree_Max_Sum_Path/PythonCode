@@ -1,0 +1,25 @@
+import sys
+
+class Solution:
+    def helper(self,root):
+        if root is None:
+            return -sys.maxsize, -sys.maxsize
+    
+        if root.left is None and root.right is None:
+            return root.val, root.val
+    
+        leftMaxSum, leftMaxPathSum = self.helper(root.left)
+        rightMaxSum, rightMaxPathSum = self.helper(root.right)
+    
+        # logic
+        maxPathSum = max(root.val + leftMaxPathSum, root.val + rightMaxPathSum, root.val)
+    
+        maxSum = max(leftMaxPathSum+root.val+rightMaxPathSum, leftMaxSum, rightMaxSum, maxPathSum)
+    
+        return maxSum, maxPathSum
+    
+    def maxPathSum(self, root) -> int:
+        if root is None:
+            return 0
+        ans = self.helper(root)
+        return ans[0]
