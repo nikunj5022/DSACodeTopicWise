@@ -1,0 +1,22 @@
+def printRootToLeafPath(root,li):
+    if root is None:
+        return 
+    
+    # proccess for root(cuurent node)
+    li.append(root.val)
+    
+    # check of leaf
+    if root.left is None and root.right is None:
+        print(li)
+        
+    # recursion calls
+    printRootToLeafPath(root.left,li)
+    printRootToLeafPath(root.right,li)
+    
+    # remove impact of root (current Node)
+    li.pop()
+    
+li = []
+
+
+# printRootToLeafPath(inputTreeRoot,li)

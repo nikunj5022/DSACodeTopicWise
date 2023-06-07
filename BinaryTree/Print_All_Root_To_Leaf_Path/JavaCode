@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    // in Input we have only root, List<Integer> path is given by us to Store the paths
+    public void printRootToLeafPath(TreeNode root, List<Integer> path) {
+        if (root == null) {
+            return;
+        }
+
+        // Process for root (current node)
+        path.add(root.val);
+
+        // Check if leaf
+        if (root.left == null && root.right == null) {
+            System.out.println(path);
+        }
+
+        // Recursion calls
+        printRootToLeafPath(root.left, path);
+        printRootToLeafPath(root.right, path);
+
+        // Remove the impact of root (current node)
+        path.remove(path.size() - 1);
+    }
+}
