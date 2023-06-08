@@ -1,0 +1,49 @@
+# Pyhton code with Class (Sorry for the naming conventions :-})
+class Solution:
+    def __init__(self):
+        self.ans = []
+    
+    def helper(self,root,k,li):
+        if root is None:
+            return None
+        li.append(root.val)
+        k-=root.val
+        if root.left is None and root.right is None:
+            if k == 0:
+                a = li.copy()
+                self.ans.append(a)
+        self.helper(root.left,k,li)
+        self.helper(root.right,k,li)
+        li.pop()
+        k+=root.val
+        
+    def pathSum(self, root, targetSum: int):
+        li = []
+        self.helper(root,targetSum,li)
+        return self.ans
+    
+
+####################################################################################
+
+# Python Code without class
+def printRoottToLeadWithGivenSum(root,k,li,ans):
+    if root is None:
+        return 
+    li.append(root.val)
+    k -= root.val
+    
+    if root.left is None and root.right is None:
+        if k == 0:
+            a = li.copy()
+            ans.append(a)
+        
+    printRoottToLeadWithGivenSum(root.left,k,li,ans)
+    printRoottToLeadWithGivenSum(root.right,k,li,ans)
+    
+    li.pop()
+    k += root.val
+
+li = []
+ans = []
+#printRoottToLeadWithGivenSum(inputTreeRoot,7,li,ans)
+#print(ans)
