@@ -1,0 +1,48 @@
+def checkIfPathExist(root,k):
+    if root is None:
+        return False
+    k -= root.val
+    
+    if root.left is None and root.right is None:
+        if k == 0:
+            return True
+    
+    leftcheck = checkIfPathExist(root.left,k)
+    rightcheck = checkIfPathExist(root.right,k)
+    
+    k += root.val
+    
+    if leftcheck or rightcheck:
+        return True
+    return False
+    
+# print(checkIfPathExist(n1,7))
+
+
+
+#############################################
+
+# Please ignore the naming conventions If anyone wants to update it
+# Feel free to raise a pull request
+
+class Solution:
+    def __init__(self):
+        self.ans = False
+    
+    def helper(self,root,k,s):
+        if root is None:
+            return False
+        s += root.val
+        if root.left is None and root.right is None:
+            if s == k :
+                return True
+        x = self.helper(root.left,k,s)
+        y = self.helper(root.right,k,s)
+        s-= root.val
+        if x or y:
+            return True
+        return False
+    
+    def hasPathSum(self, root, targetSum):
+        li = 0
+        return self.helper(root,targetSum,li)

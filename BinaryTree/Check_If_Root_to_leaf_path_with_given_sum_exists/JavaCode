@@ -1,0 +1,34 @@
+// Please ignore the naming conventions If anyone wants to update it
+// Feel free to raise a pull request
+
+class Solution {
+    private boolean ans;
+
+    public Solution() {
+        ans = false;
+    }
+
+    public boolean helper(TreeNode root, int k, int s) {
+        if (root == null) {
+            return false;
+        }
+        s += root.val;
+        if (root.left == null && root.right == null) {
+            if (s == k) {
+                return true;
+            }
+        }
+        boolean x = helper(root.left, k, s);
+        boolean y = helper(root.right, k, s);
+        s -= root.val;
+        if (x || y) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        int li = 0;
+        return helper(root, targetSum, li);
+    }
+}
