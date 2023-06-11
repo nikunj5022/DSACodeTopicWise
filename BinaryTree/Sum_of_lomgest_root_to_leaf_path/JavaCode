@@ -1,0 +1,29 @@
+class Solution {
+    private void helper(Node root, int[] su, int[] le) {
+        if (root == null) {
+            return;
+        }
+        le[0] += root.data;
+        le[1] += 1;
+        if (root.left == null && root.right == null) {
+            if (su[1] < le[1]) {
+                su[0] = le[0];
+                su[1] = le[1];
+            } else if (su[1] == le[1]) {
+                su[0] = Math.max(su[0], le[0]);
+                su[1] = le[1];
+            }
+        }
+        helper(root.left, su, le);
+        helper(root.right, su, le);
+        le[0] -= root.data;
+        le[1] -= 1;
+    }
+    
+    public int sumOfLongRootToLeafPath(Node root) {
+        int[] su = {0, 0};
+        int[] le = {0, 0};
+        helper(root, su, le);
+        return su[0];
+    }
+}
