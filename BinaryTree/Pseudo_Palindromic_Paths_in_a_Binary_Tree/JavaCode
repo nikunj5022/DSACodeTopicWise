@@ -1,0 +1,58 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    private int ans;
+    
+    public Solution() {
+        this.ans = 0;
+    }
+    
+    private void helper(TreeNode root, Map<Integer, Integer> freqDict, int pathLen, int oddCount) {
+        if (root == null) {
+            return;
+        }
+        
+        freqDict.put(root.val, freqDict.getOrDefault(root.val, 0) + 1);
+        
+        if (freqDict.get(root.val) % 2 == 0) {
+            oddCount -= 1;
+        } else {
+            oddCount += 1;
+        }
+        
+        pathLen += 1;
+        
+        if (root.left == null && root.right == null) {
+            if (pathLen % 2 == 0) {
+                if (oddCount == 0) {
+                    this.ans += 1;
+                }
+            } else {
+                if (oddCount == 1) {
+                    this.ans += 1;
+                }
+            }
+        }
+        
+        helper(root.left, freqDict, pathLen, oddCount);
+        helper(root.right, freqDict, pathLen, oddCount);
+        
+        if (freqDict.get(root.val) % 2 == 0) {
+            oddCount += 1;
+        } else {
+            oddCount -= 1;
+        }
+        
+        freqDict.put(root.val, freqDict.get(root.val) - 1);
+        pathLen -= 1;
+    }
+    
+    public int pseudoPalindromicPaths(TreeNode root) {
+        Map<Integer, Integer> freqDict = new HashMap<>();
+        int pathLen = 0;
+        int oddCount = 0;
+        helper(root, freqDict, pathLen, oddCount);
+        return this.ans;
+    }
+}

@@ -1,0 +1,37 @@
+class Solution:
+    def __init__(self):
+        self.ans = 0
+
+    def helper(self,root,freqDict,pathLen,oddCount):
+        if root is None:
+            return 
+        freqDict[root.val] = freqDict.get(root.val,0) + 1
+        if freqDict[root.val]%2 == 0:
+            oddCount -= 1
+        else:
+            oddCount += 1
+        pathLen +=1
+        if root.left is None and root.right is None:
+            if pathLen%2 == 0:
+                if oddCount == 0:
+                    self.ans += 1
+            else:
+                if oddCount == 1:
+                    self.ans += 1
+        self.helper(root.left,freqDict,pathLen,oddCount)
+        self.helper(root.right,freqDict,pathLen,oddCount)
+        
+        if freqDict[root.val] %2 == 0:
+            oddCount +=1
+        else:
+            oddCount -=1
+        freqDict[root.val] = freqDict[root.val] - 1
+        pathLen -= 1
+        
+
+    def pseudoPalindromicPaths (self, root) -> int:
+        freqDict = {}
+        pathLen = 0
+        oddCount = 0
+        self.helper(root,freqDict,pathLen,oddCount)
+        return self.ans
