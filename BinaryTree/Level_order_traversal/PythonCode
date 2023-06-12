@@ -1,0 +1,20 @@
+#User function Template for python3
+import queue
+
+class Solution:
+    #Function to return the level order traversal of a tree.
+    def levelOrder(self,root ):
+        # Code here
+        nodesQueue = queue.Queue()
+        ans = []
+        
+        nodesQueue.put(root)
+        
+        while nodesQueue.empty() is False:
+            curr = nodesQueue.get()
+            ans.append(curr.data)
+            if curr.left is not None:
+                nodesQueue.put(curr.left)
+            if curr.right is not None:
+                nodesQueue.put(curr.right)
+        return ans
