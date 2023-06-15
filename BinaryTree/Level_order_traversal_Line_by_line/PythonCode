@@ -1,0 +1,25 @@
+def levelOrderLineByLineIterative(root):
+    li = []
+    q = []
+    q.append(root)
+    li.append([root.val])
+    
+    while len(q) > 0:
+        levelLen = len(q)
+        temp = []
+        for i in range(levelLen):
+            curr = q.pop(0)
+            if curr.left is not None:
+                temp.append(curr.left.val)
+                q.append(curr.left)
+                
+            if curr.right is not None:
+                temp.append(curr.right.val)
+                q.append(curr.right)
+                  
+        if len(temp) > 0:
+            li.append(temp)
+            
+    return li
+
+#print(levelOrderLineByLineIterative(n1))
