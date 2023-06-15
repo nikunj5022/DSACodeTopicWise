@@ -1,0 +1,25 @@
+def helperLO(root,level,d):
+    #base case
+    if root is None:
+        return
+    
+    if level in d:
+        d[level].append(root.val)
+    else:
+        d[level] = [root.val]
+        
+    helperLO(root.left,level+1,d)
+    helperLO(root.right,level+1,d)
+
+def levelOrderLineByLineRecursive(root):
+    d = {}
+    level = 0
+    helperLO(root,level,d)
+    
+    ans = []
+    
+    for i in range(len(d)):
+        ans.append(d[i])
+    return ans
+    
+#print(levelOrderLineByLineRecursive(n1))

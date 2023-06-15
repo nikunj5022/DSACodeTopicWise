@@ -1,0 +1,31 @@
+class Solution {
+    public static void helperLO(TreeNode root, int level, Map<Integer, List<Integer>> d) {
+        // Base case
+        if (root == null) {
+            return;
+        }
+
+        if (d.containsKey(level)) {
+            d.get(level).add(root.val);
+        } else {
+            List<Integer> levelList = new ArrayList<>();
+            levelList.add(root.val);
+            d.put(level, levelList);
+        }
+
+        helperLO(root.left, level + 1, d);
+        helperLO(root.right, level + 1, d);
+    }
+    
+    public List<List<Integer>> levelOrder(TreeNode root) {
+                Map<Integer, List<Integer>> d = new HashMap<>();
+        int level = 0;
+        helperLO(root, level, d);
+
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < d.size(); i++) {
+            ans.add(d.get(i));
+        }
+        return ans;
+    }
+}
