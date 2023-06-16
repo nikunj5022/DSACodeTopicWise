@@ -1,0 +1,27 @@
+class Solution:
+    def maxLevelSum(self, root) -> int:
+        q = []
+        q.append(root)
+    
+        maxLevel = 1
+        maxSum = root.val
+        level = 1
+    
+        while len(q) > 0:
+            tempSum = 0
+            levelLen = len(q)
+            level += 1
+            for i in range(levelLen):
+                curr = q.pop(0) 
+                  
+                if curr.left is not None:
+                    tempSum += curr.left.val
+                    q.append(curr.left)
+                if curr.right is not None:
+                    tempSum += curr.right.val
+                    q.append(curr.right)
+            if len(q) > 0:
+                if tempSum > maxSum:
+                    maxSum = tempSum
+                    maxLevel = level
+        return maxLevel
