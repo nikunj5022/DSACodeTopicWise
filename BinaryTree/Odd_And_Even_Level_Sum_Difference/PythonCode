@@ -1,0 +1,29 @@
+def getLevelDiff2(root):
+    # Code here
+    q = []
+    q.append(root)
+    oddSum = 0
+    evenSum = 0
+    level = 1
+    oddSum += root.val
+        
+    while len(q) > 0:
+        temp = 0
+        lenQ = len(q)
+        for i in range(lenQ):
+            curr = q.pop(0)
+            if curr.left is not None:
+                q.append(curr.left)
+                temp += curr.left.val
+            if curr.right is not None:
+                q.append(curr.right)
+                temp += curr.right.val
+
+        if len(q) > 0:
+            level += 1
+            if(level%2) == 0:
+                evenSum += temp
+            else:
+                oddSum += temp
+        
+    return oddSum - evenSum
