@@ -1,0 +1,18 @@
+def connect(root):
+    if root is None:
+        return None
+    q = []
+    q.append(root)
+    while len(q) > 0:
+        z = len(q)
+        prev = None
+        for i in range(z):
+            curr = q.pop(0)
+            if prev != None:
+                prev.next = curr
+            if curr.left is not None:
+                q.append(curr.left)
+            if curr.right is not None:
+                q.append(curr.right)
+            prev = curr
+    return root
