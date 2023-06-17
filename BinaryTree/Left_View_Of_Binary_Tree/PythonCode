@@ -1,0 +1,17 @@
+def LeftView(root):
+    if root is None:
+        return []
+    
+    q = []
+    q.append(root)
+    ans = []
+    while len(q) > 0:
+        ans.append(q[0].data)
+        lenQ = len(q)
+        for i in range(lenQ):
+            curr = q.pop(0)
+            if curr.left is not None:
+                q.append(curr.left)
+            if curr.right is not None:
+                q.append(curr.right)
+    return ans
