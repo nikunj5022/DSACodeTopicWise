@@ -1,0 +1,18 @@
+class Solution:
+    #Function to return list containing elements of right view of binary tree.
+    def rightView(self,root):
+        if root is None:
+            return 
+        ans = []
+        q = []
+        q.append(root)
+        while len(q) > 0:
+            ans.append(q[-1].data)
+            lenQ = len(q)
+            for i in range(lenQ):
+                curr = q.pop(0)
+                if curr.left is not None:
+                    q.append(curr.left)
+                if curr.right is not None:
+                    q.append(curr.right)
+        return ans
