@@ -1,0 +1,30 @@
+class Solution:
+    
+    def verticalOrder(self, root): 
+        #Your code here
+        d = {}
+        ans = []
+        q = []
+        hdMax, hdMin = 0,0
+        q.append([root,0])
+        
+        while len(q) > 0:
+            curr = q.pop(0)
+            currNode = curr[0]
+            currHd = curr[1]
+            hdMax = max(hdMax,currHd)
+            hdMin = min(hdMin,currHd)
+            if currHd not in d:
+                d[currHd] = [currNode.data]
+            else:
+                d[currHd].append(currNode.data)
+            if currNode.left is not None:
+                q.append([currNode.left,currHd-1])
+                
+            if currNode.right is not None:
+                q.append([currNode.right,currHd+1])
+
+        for i in sorted(d):
+            for j in d[i]:
+                ans.append(j)
+        return ans
