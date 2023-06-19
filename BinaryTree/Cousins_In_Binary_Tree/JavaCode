@@ -1,0 +1,39 @@
+    private Pair<Integer, Integer> helper(TreeNode root, int level, int ele) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.left != null && root.left.val == ele) {
+            return new Pair<>(root.val, level + 1);
+        }
+        if (root.right != null && root.right.val == ele) {
+            return new Pair<>(root.val, level + 1);
+        }
+
+        Pair<Integer, Integer> leftAns = helper(root.left, level + 1, ele);
+        Pair<Integer, Integer> rightAns = helper(root.right, level + 1, ele);
+
+        if (leftAns != null) {
+            return leftAns;
+        } else if (rightAns != null) {
+            return rightAns;
+        }
+        return null;
+    }
+
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if (root == null) {
+            return false;
+        }
+        if (root.val == x || root.val == y) {
+            return false;
+        }
+
+        Pair<Integer, Integer> xInfo = helper(root, 0, x);
+        Pair<Integer, Integer> yInfo = helper(root, 0, y);
+
+        if (xInfo.getValue().equals(yInfo.getValue()) && !xInfo.getKey().equals(yInfo.getKey())) {
+            return true;
+        }
+        return false;
+    }

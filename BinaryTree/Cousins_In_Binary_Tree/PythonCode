@@ -1,0 +1,31 @@
+class Solution:
+    def helper(self,root,level,ele):
+        if root is None:
+            return None
+        
+        if root.left is not None and root.left.val == ele:
+            return root.val,level+1
+        if root.right is not None and root.right.val == ele:
+            return root.val,level+1
+
+        leftAns = self.helper(root.left,level+1,ele)
+        rightAns = self.helper(root.right,level+1,ele)
+
+        if leftAns is not None:
+            return leftAns
+        elif rightAns is not None:
+            return rightAns
+        return None
+
+    def isCousins(self, root, x: int, y: int) -> bool:
+        if root is None:
+            return False
+        if root.val == x or root.val == y:
+            return False
+
+        xInfo = self.helper(root,0,x)
+        yInfo = self.helper(root,0,y)
+
+        if xInfo[1] == yInfo[1] and xInfo[0] != yInfo[0]:
+            return True
+        return False 
