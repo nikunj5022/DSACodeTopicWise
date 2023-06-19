@@ -1,0 +1,14 @@
+class Solution:
+    def areMirror(self,root1,root2):
+        if root1 is None and root2 is None:
+            return True
+        if root1 is None or root2 is None:
+            return False
+            
+        leftCheck = self.areMirror(root1.left,root2.right)
+        rightCheck = self.areMirror(root1.right,root2.left)
+        
+        if leftCheck and rightCheck:
+            if root1.data == root2.data:
+                return True
+        return False

@@ -1,0 +1,18 @@
+class Solution {
+    public boolean areMirror(Node root1, Node root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+
+        boolean leftCheck = areMirror(root1.left, root2.right);
+        boolean rightCheck = areMirror(root1.right, root2.left);
+
+        if (leftCheck && rightCheck && root1.data == root2.data) {
+            return true;
+        }
+        return false;
+    }
+}
