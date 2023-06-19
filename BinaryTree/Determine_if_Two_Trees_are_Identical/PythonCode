@@ -1,0 +1,16 @@
+class Solution:
+    #Function to check if two trees are identical.
+    def isIdentical(self,root1, root2):
+        # Code here
+        if root1 is None and root2 is None:
+            return True
+        if root1 is None or root2 is None:
+            return False
+            
+        leftCheck = self.isIdentical(root1.left,root2.left)
+        rightCheck = self.isIdentical(root1.right,root2.right)
+        
+        if leftCheck and rightCheck:
+            if root1.data == root2.data:
+                return True
+        return False
