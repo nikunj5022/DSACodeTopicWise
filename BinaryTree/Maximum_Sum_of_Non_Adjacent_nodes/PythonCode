@@ -1,0 +1,19 @@
+class Solution:
+    #Function to return the maximum sum of non-adjacent nodes.
+    def helper(self,root):
+        if root is None:
+            return 0,0
+        if root.left is None and root.right is None:
+            return 0,root.data
+        
+        lWoRoot,lWithRoot = self.helper(root.left)
+        rWoRoot,rWithRoot = self.helper(root.right)
+        
+        withRoot = root.data + lWoRoot + rWoRoot
+        wORoot = max(lWithRoot,lWoRoot) + max(rWithRoot,rWoRoot)
+        
+        return wORoot,withRoot
+    
+    def getMaxSum(self,root):
+        #code here
+        return max(self.helper(root))

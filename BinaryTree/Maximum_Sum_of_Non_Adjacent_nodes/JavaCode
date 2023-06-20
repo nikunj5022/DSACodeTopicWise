@@ -1,0 +1,28 @@
+class Solution
+{
+    static private int[] helper(Node root) {
+        if (root == null) {
+            return new int[]{0, 0};
+        }
+        if (root.left == null && root.right == null) {
+            return new int[]{0, root.data};
+        }
+
+        int[] lWoRoot = helper(root.left);
+        int[] rWoRoot = helper(root.right);
+
+        int withRoot = root.data + lWoRoot[0] + rWoRoot[0];
+        int wORoot = Math.max(lWoRoot[1], lWoRoot[0]) + Math.max(rWoRoot[1], rWoRoot[0]);
+
+        return new int[]{wORoot, withRoot};
+    }
+
+    static int getMaxSum(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int[] result = helper(root);
+        return Math.max(result[0], result[1]);
+    }
+}
