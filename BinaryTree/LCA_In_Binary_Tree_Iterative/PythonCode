@@ -1,0 +1,30 @@
+class Solution:
+    def __init__(self):
+        self.ans1 = []
+        self.ans2 = []
+    
+    def pathRtoN(self,root,p,q,li):
+        if root is None:
+            return
+        li.append(root)
+        if root == p:
+            self.ans1 = li.copy()
+        if root == q:
+            self.ans2 = li.copy()
+        self.pathRtoN(root.left,p,q,li)
+        self.pathRtoN(root.right,p,q,li)
+        li.pop()
+    
+    
+    def lowestCommonAncestor(self, root, p, q):
+        self.pathRtoN(root,p,q,[])
+        i = 0
+        j = 0
+        while i < len(self.ans1) and j < len(self.ans2):
+            if ((self.ans1[i]) != (self.ans2[j])):
+                return self.ans1[i-1]
+            elif (((self.ans1[i]) == (self.ans2[j])) and ((i==len(self.ans1)-1) or (j==len(self.ans2)-1))):
+                return self.ans1[i]
+            i += 1
+            j += 1
+        return None
