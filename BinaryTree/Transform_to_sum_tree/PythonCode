@@ -1,0 +1,11 @@
+class Solution:
+    def toSumTree(self, root) :
+        #code here
+        if root is None:
+            return 0
+        leftSum = self.toSumTree(root.left)
+        rightSum = self.toSumTree(root.right)
+        
+        toReturn = leftSum + rightSum + root.data
+        root.data = leftSum + rightSum
+        return toReturn

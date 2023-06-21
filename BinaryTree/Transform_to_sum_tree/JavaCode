@@ -1,0 +1,15 @@
+class Solution {
+    public int toSumTree(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        
+        int leftSum = toSumTree(root.left);
+        int rightSum = toSumTree(root.right);
+        
+        int toReturn = leftSum + rightSum + root.data;
+        root.data = leftSum + rightSum;
+        
+        return toReturn;
+    }
+}
