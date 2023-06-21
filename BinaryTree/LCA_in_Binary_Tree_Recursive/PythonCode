@@ -1,0 +1,28 @@
+class Solution:
+    def __init__(self):
+        self.ans = None
+
+    def helper(self,root,p,q):
+        if root is None:
+            return False
+
+        leftAns = self.helper(root.left,p,q)
+        rightAns = self.helper(root.right,p,q)
+
+        if leftAns and rightAns:
+            self.ans = root
+            return True
+        elif leftAns or rightAns:
+            if root == p or root == q:
+                self.ans = root
+                return True
+            else:
+                return True
+        else:
+            if root == p or root == q:
+                return True
+        return False
+
+    def lowestCommonAncestor(self, root, p, q):
+        self.helper(root,p,q)
+        return self.ans

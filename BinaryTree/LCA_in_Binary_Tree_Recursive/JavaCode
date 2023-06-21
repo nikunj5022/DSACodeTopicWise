@@ -1,0 +1,38 @@
+class Solution {
+    TreeNode ans;
+
+    Solution() {
+        ans = null;
+    }
+
+    boolean helper(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return false;
+        }
+
+        boolean leftAns = helper(root.left, p, q);
+        boolean rightAns = helper(root.right, p, q);
+
+        if (leftAns && rightAns) {
+            ans = root;
+            return true;
+        } else if (leftAns || rightAns) {
+            if (root == p || root == q) {
+                ans = root;
+                return true;
+            } else {
+                return true;
+            }
+        } else {
+            if (root == p || root == q) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        helper(root, p, q);
+        return ans;
+    }
+}
