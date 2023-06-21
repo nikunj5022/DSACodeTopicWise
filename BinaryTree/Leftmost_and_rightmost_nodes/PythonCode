@@ -1,0 +1,22 @@
+def printCorner(root):
+    if root is None:
+        return 
+    
+    q = []
+    
+    q.append(root)
+    
+    while len(q) > 0:
+        l = len(q)
+        if l>1:
+            print(q[0].data,q[-1].data, end =" ")
+        else:
+            print(q[0].data, end=" ")
+            
+        for i in range(l):
+            curr = q.pop(0)
+            
+            if curr.left is not None:
+                q.append(curr.left)
+            if curr.right is not None:
+                q.append(curr.right)
