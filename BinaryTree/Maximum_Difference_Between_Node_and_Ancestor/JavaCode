@@ -1,0 +1,24 @@
+class Solution {
+    public int[] helper(TreeNode root) {
+        if (root == null) {
+            return new int[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE};
+        }
+        if (root.left == null && root.right == null) {
+            return new int[]{0, root.val, root.val};
+        }
+
+        int[] left = helper(root.left);
+        int[] right = helper(root.right);
+
+        int ans = Math.max(Math.max(left[0], right[0]), Math.max(Math.abs(root.val - Math.min(left[1], right[1])), Math.abs(root.val - Math.max(left[2], right[2]))));
+        int minimum = Math.min(Math.min(left[1], right[1]), root.val);
+        int maximum = Math.max(Math.max(left[2], right[2]), root.val);
+
+        return new int[]{ans, minimum, maximum};
+    }
+
+    public int maxAncestorDiff(TreeNode root) {
+        int[] result = helper(root);
+        return result[0];
+    }
+}

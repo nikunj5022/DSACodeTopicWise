@@ -1,0 +1,20 @@
+import sys
+class Solution:
+    def helper(self,root):
+        if root is None:
+            return 0,sys.maxsize,-sys.maxsize
+        if root.left is None and root.right is None:
+            return 0,root.val,root.val
+        
+        leftAns, leftMin, leftMax = self.helper(root.left)
+        rightAns, rightMin, rightMax = self.helper(root.right)
+
+        ans = max(leftAns,rightAns, abs(root.val-min(leftMin,rightMin)), abs(root.val-max(leftMax,rightMax)))
+        minimum = min(leftMin,rightMin,root.val)
+        maximum = max(leftMax,rightMax,root.val)
+
+        return ans,minimum,maximum
+        
+    def maxAncestorDiff(self, root):
+        li = self.helper(root)
+        return li[0]
