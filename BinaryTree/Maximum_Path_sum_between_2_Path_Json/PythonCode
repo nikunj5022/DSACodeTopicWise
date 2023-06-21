@@ -1,0 +1,25 @@
+import sys
+
+class Solution:  
+    def helper(self,root):
+        if root is None:
+            return -sys.maxsize,-sys.maxsize
+        if root.left is None and root.right is None:
+            return -sys.maxsize, root.data
+        
+        leftMaxSum, leftMaxPathSum = self.helper(root.left)
+        rightMaxSum, rightMaxPathSum = self.helper(root.right)
+        
+        maxSum = max(root.data+leftMaxPathSum+rightMaxPathSum, leftMaxSum, rightMaxSum)
+        maxPathSum = max(root.data+leftMaxPathSum,root.data+rightMaxPathSum)
+        
+        return maxSum, maxPathSum
+        
+    def maxPathSum(self, root):
+        # code here
+        ans = self.helper(root)
+        
+        #will be used if root have only 1 child because in that case path can be from root ot leaf itself
+        if root.left is None and root.right is not None or root.left is not None and root.right is None:
+            return max(ans)
+        return ans[0]
