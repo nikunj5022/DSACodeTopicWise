@@ -1,0 +1,16 @@
+class Solution:
+    def __init__(self):
+        self.ans = 0
+        
+    def helper(self,root):
+
+        if root is None:
+            return 0
+        l = self.helper(root.left)
+        r = self.helper(root.right)
+        self.ans += abs(l)+abs(r)
+        return root.val + l+ r -1
+    
+    def distributeCoins(self, root):
+        self.helper(root)
+        return self.ans
