@@ -1,0 +1,27 @@
+class Solution:
+    def minLeafSum(self,root):
+        #code here
+        ans = 0
+        foundLeaf = False
+        
+        q = []
+        
+        q.append(root)
+        
+        while len(q) > 0:
+            l = len(q)
+            
+            for i in range(l):
+                curr = q.pop(0)
+                
+                if curr.left is None and curr.right is None:
+                    ans += curr.data
+                    foundLeaf = True
+                
+                if curr.left is not None:
+                    q.append(curr.left)
+                if curr.right is not None:
+                    q.append(curr.right)
+                    
+            if foundLeaf:
+                return ans
