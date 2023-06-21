@@ -1,0 +1,23 @@
+class TreeNode:
+    def __init__(self,val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+class Solution:
+    def buildTree(self, preorder, inorder):
+        if len(preorder)==0:
+            return None
+
+        root=preorder[0]
+        myroot=TreeNode(root)
+        myindex = 0
+        for j in range(len(inorder)):
+            if inorder[j]==root:
+                myindex=j
+                break
+                     
+        myroot.left=self.buildTree(preorder[1:myindex+1],inorder[0:myindex+1])
+        myroot.right=self.buildTree(preorder[myindex+1::],inorder[myindex+1::])
+
+        return myroot
