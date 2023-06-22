@@ -1,0 +1,44 @@
+class GfG {
+    private int ans;
+
+    public GfG() {
+        this.ans = 0;
+    }
+
+    public int[] helper(Node root, int p, int q) {
+        if (root == null) {
+            return new int[]{0, 0};
+        }
+
+        int[] leftResult = helper(root.left, p, q);
+        int[] rightResult = helper(root.right, p, q);
+
+        boolean leftAns = leftResult[0] == 1;
+        int leftDist = leftResult[1];
+        boolean rightAns = rightResult[0] == 1;
+        int rightDist = rightResult[1];
+
+        if (leftAns && rightAns) {
+            ans = leftDist + rightDist;
+            return new int[]{1, leftDist + rightDist};
+        } else if (leftAns || rightAns) {
+            if (root.data == p || root.data == q) {
+                ans = Math.max(leftDist, rightDist);
+                return new int[]{1, Math.max(leftDist, rightDist)};
+            } else {
+                return new int[]{1, Math.max(leftDist, rightDist) + 1};
+            }
+        } else {
+            if (root.data == p || root.data == q) {
+                return new int[]{1, 1};
+            }
+        }
+
+        return new int[]{0, 0};
+    }
+
+    int findDist(Node root, int a, int b) {
+        helper(root, a, b);
+        return ans;
+    }
+}
