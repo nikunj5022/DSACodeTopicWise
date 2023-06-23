@@ -1,0 +1,49 @@
+class Solution:
+    def __init__(self):
+        self.ans = []
+        
+    def helper(self,target,k,parent):
+        q = []
+        q.append([target,k])
+        
+        while len(q) > 0:
+            x = q[0]
+            q.pop(0)
+            currNode = x[0]
+            currK = x[1]
+            if currNode.val != -1:
+                if currK == 0:
+                    self.ans.append(currNode.val)
+                if currK < 0:
+                    break
+            
+                if currNode.left is not None:
+                    q.append([currNode.left,currK-1])
+                if currNode.right is not None:
+                    q.append([currNode.right,currK-1])
+                if currNode in parent:
+                    q.append([parent[currNode],currK-1])
+                currNode.val = -1
+
+    
+    def distanceK(self, root, target, k):
+        parent = {}
+        
+        q = []
+        
+        q.append(root)
+        
+        while len(q) > 0:
+            curr = q[0]
+            
+            q.pop(0)
+            
+            if curr.left is not None:
+                parent[curr.left] = curr
+                q.append(curr.left)
+            if curr.right is not None:
+                parent[curr.right] = curr
+                q.append(curr.right)
+                
+        self.helper(target,k,parent)
+        return self.ans
